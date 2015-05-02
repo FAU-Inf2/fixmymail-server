@@ -1,5 +1,6 @@
 
 FROM debian
+
 ENV DEBIAN_FRONTEND noninteractive
 RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
 
@@ -12,18 +13,11 @@ RUN apt-get install -y telnet
 RUN apt-get install -y less
 RUN apt-get install -y mysql-client
 
-RUN apt-get install -y gamin courier-imap courier-imap-ssl
+RUN apt-get install -y dovecot-core dovecot-imapd
 
 RUN echo 'debconf debconf/frontend select Dialog' | debconf-set-selections
 
-RUN maildirmake /etc/skel/Maildir
-RUN maildirmake /etc/skel/Maildir/.Drafts
-RUN maildirmake /etc/skel/Maildir/.Sent
-RUN maildirmake /etc/skel/Maildir/.Trash
-RUN maildirmake /etc/skel/Maildir/.Templates
-
-RUN useradd -m fixmymail
-echo -e "$FIXMYMAILPW\n$FIXMYMAILPW" | passwd fixmymail
 ADD config/vimrc /root/.vimrc
 
 EXPOSE 143 993 110 995
+CMD ["/bin/sh", "/etc/init.d/rsyslog", "start"]
