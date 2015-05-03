@@ -23,7 +23,10 @@ RUN maildirmake /etc/skel/Maildir/.Trash
 RUN maildirmake /etc/skel/Maildir/.Templates
 
 RUN useradd -m fixmymail
-echo -e "$FIXMYMAILPW\n$FIXMYMAILPW" | passwd fixmymail
 ADD config/vimrc /root/.vimrc
+ADD init.sh /init.sh
+RUN chmod 744 /init.sh
 
 EXPOSE 143 993 110 995
+
+CMD ["/init.sh"]

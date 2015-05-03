@@ -20,11 +20,7 @@ RUN apt-get install -y cyrus-imapd cyrus-admin sasl2-bin
 RUN echo 'debconf debconf/frontend select Dialog' | debconf-set-selections
 
 RUN chown cyrus /etc/sasldb2
-RUN echo -e "$CYRUSPW\n$CYRUSPW" | passwd cyrus
-RUN echo -e "$CYRUSPW\n$CYRUSPW" | saslpasswd2 -c cyrus
-
 RUN useradd fixmymail
-RUN echo -e "$FIXMYMAILPW\n$FIXMYMAILPW" | passwd fixmymail
 
 ADD config/imapd.conf /etc/imapd.conf
 ADD config/cyrus.conf /etc/cyrus.conf

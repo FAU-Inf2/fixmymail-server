@@ -17,7 +17,11 @@ RUN apt-get install -y dovecot-core dovecot-imapd
 
 RUN echo 'debconf debconf/frontend select Dialog' | debconf-set-selections
 
+RUN useradd fixmymail
 ADD config/vimrc /root/.vimrc
+ADD init.sh /init.sh
+RUN chmod 744 /init.sh
 
 EXPOSE 143 993 110 995
-CMD ["/bin/sh", "/etc/init.d/rsyslog", "start"]
+
+CMD ["/init.sh"]
