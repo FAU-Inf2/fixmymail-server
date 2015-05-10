@@ -1,0 +1,2 @@
+#!/bin/sh
+exec setuidgid nobody sh -c 'exec /usr/sbin/rsyslogd'

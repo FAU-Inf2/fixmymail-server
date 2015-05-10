@@ -25,8 +25,10 @@ RUN maildirmake /etc/skel/Maildir/.Templates
 RUN useradd -m fixmymail
 ADD config/vimrc /root/.vimrc
 ADD init.sh /init.sh
-RUN chmod 744 /init.sh
+RUN chmod 755 /init.sh
+
+ADD config/10-centrallog.conf /etc/rsyslog.d/10-centrallog.conf
 
 EXPOSE 143 993 110 995
 
-CMD ["/init.sh"]
+ENTRYPOINT ["/init.sh"]

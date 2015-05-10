@@ -1,0 +1,2 @@
+#!/bin/sh
+exec setuidgid nobody sh -c 'exec multilog t n20 /var/log/supervisor'
