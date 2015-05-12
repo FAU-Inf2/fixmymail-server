@@ -13,6 +13,7 @@ RUN apt-get install -y telnet
 RUN apt-get install -y less
 RUN apt-get install -y mysql-client
 RUN apt-get install -y daemontools daemontools-run
+RUN mkdir /var/log/supervisor
 RUN mkdir -p /etc/service/rsyslog/log
 #RUN mkdir -p /etc/service/sshd/log
 #RUN mkdir -p /etc/service/dovecot/log

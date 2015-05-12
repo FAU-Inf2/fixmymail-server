@@ -10,5 +10,5 @@ fi
 #/etc/init.d/rsyslog start
 #/etc/init.d/ssh start
 #/etc/init.d/dovecot start
-svscanboot
+svscanboot 
 #wait
