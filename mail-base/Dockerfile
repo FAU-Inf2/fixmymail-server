@@ -1,29 +1,6 @@
-FROM ubuntu:14.04
+FROM debian
 
 ENV DEBIAN_FRONTEND noninteractive
-
-RUN echo 'deb http://archive.ubuntu.com/ubuntu/ trusty main' | tee /etc/apt/sources.list
-RUN echo 'deb-src http://archive.ubuntu.com/ubuntu/ trusty main' | tee -a /etc/apt/sources.list
-RUN echo 'deb http://archive.ubuntu.com/ubuntu/ trusty-updates main' | tee -a /etc/apt/sources.list
-RUN echo 'deb-src http://archive.ubuntu.com/ubuntu/ trusty-updates main' | tee -a /etc/apt/sources.list
-RUN echo 'deb http://archive.ubuntu.com/ubuntu/ trusty universe' | tee -a /etc/apt/sources.list
-RUN echo 'deb-src http://archive.ubuntu.com/ubuntu/ trusty universe' | tee -a /etc/apt/sources.list
-RUN echo 'deb http://archive.ubuntu.com/ubuntu/ trusty-updates universe' | tee -a /etc/apt/sources.list
-RUN echo 'deb-src http://archive.ubuntu.com/ubuntu/ trusty-updates universe' | tee -a /etc/apt/sources.list
-RUN echo 'deb http://archive.ubuntu.com/ubuntu/ trusty multiverse' | tee -a /etc/apt/sources.list
-RUN echo 'deb-src http://archive.ubuntu.com/ubuntu/ trusty multiverse' | tee -a /etc/apt/sources.list
-RUN echo 'deb http://archive.ubuntu.com/ubuntu/ trusty-updates multiverse' | tee -a /etc/apt/sources.list
-RUN echo 'deb-src http://archive.ubuntu.com/ubuntu/ trusty-updates multiverse' | tee -a /etc/apt/sources.list
-RUN echo 'deb http://archive.ubuntu.com/ubuntu/ trusty-backports main restricted universe multiverse' | tee -a /etc/apt/sources.list
-RUN echo 'deb-src http://archive.ubuntu.com/ubuntu/ trusty-backports main restricted universe multiverse' | tee -a /etc/apt/sources.list
-RUN echo 'deb http://security.ubuntu.com/ubuntu trusty-security main' | tee -a /etc/apt/sources.list
-RUN echo 'deb-src http://security.ubuntu.com/ubuntu trusty-security main' | tee -a /etc/apt/sources.list
-RUN echo 'deb http://security.ubuntu.com/ubuntu trusty-security universe' | tee -a /etc/apt/sources.list
-RUN echo 'deb-src http://security.ubuntu.com/ubuntu trusty-security universe' | tee -a /etc/apt/sources.list
-RUN echo 'deb http://security.ubuntu.com/ubuntu trusty-security multiverse' | tee -a /etc/apt/sources.list
-RUN echo 'deb-src http://security.ubuntu.com/ubuntu trusty-security multiverse' | tee -a /etc/apt/sources.list
-
-RUN locale-gen en_US en_US.UTF-8 && dpkg-reconfigure locales
 
 RUN apt-get update
 
@@ -31,6 +8,22 @@ RUN apt-get -y -q autoclean
 RUN apt-get -y -q autoremove
 RUN apt-get clean
 
+RUN apt-get install -y rsyslog
+RUN apt-get install -y openssh-server
+RUN apt-get install -y vim
+RUN apt-get install -y telnet
+RUN apt-get install -y less
+
+RUN useradd -m fixmymail
+
+# add user vmail who own all mail folders
+RUN groupadd -g 5000 vmail
+RUN useradd -g vmail -u 5000 vmail -d /srv/vmail -m
+RUN chown -R vmail:vmail /srv/vmail
+RUN chmod u+w /srv/vmail
+
 ADD ./domains /domains
 ADD ./aliases /aliases
 ADD ./passwords /passwords
+ADD ./vimrc /root/.vimrc
+ADD ./10-centrallog.conf /etc/rsyslog.d/10-centrallog.conf
