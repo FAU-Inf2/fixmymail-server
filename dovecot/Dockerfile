@@ -46,6 +46,11 @@ ADD ./dovecot.imap /etc/dovecot/conf.d/20-imap.conf
 # Add password file
 RUN cp /passwords /etc/dovecot/passwd
 
+ADD ./start.sh /start.sh
+RUN chmod 755 /start.sh
+
+RUN useradd -m fixmymail
+
 # i'm not sure what expose actually does, so its mainly here for documentation
 # smtp port for incoming mail
 EXPOSE 25 
@@ -58,5 +63,5 @@ EXPOSE 587
 # http://www.synology-wiki.de/index.php/Zusaetzliche_Ports_fuer_Postfix
 
 # start necessary services for operation (dovecot -F starts dovecot in the foreground to prevent container exit)
-ENTRYPOINT chown -R vmail:vmail /srv/vmail; service rsyslog start; service postfix start; dovecot -F
+ENTRYPOINT ["/start.sh"]
 

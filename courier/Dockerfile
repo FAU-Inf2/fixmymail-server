@@ -32,6 +32,11 @@ RUN maildirmake /etc/skel/Maildir/.Sent
 RUN maildirmake /etc/skel/Maildir/.Trash
 RUN maildirmake /etc/skel/Maildir/.Templates
 
+RUN useradd -m fixmymail
+
+ADD start.sh /start.sh
+RUN chmod 755 /start.sh
+
 # smtp port for incoming mail
 EXPOSE 25 
 
@@ -42,3 +47,5 @@ EXPOSE 143
 EXPOSE 587
 
 EXPOSE 993 110 995
+
+ENTRYPOINT ["/start.sh"]

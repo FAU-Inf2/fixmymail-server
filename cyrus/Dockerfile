@@ -34,6 +34,10 @@ ADD ./imapd.conf /etc/imapd.conf
 ADD ./cyrus.conf /etc/cyrus.conf
 ADD ./saslauthd /etc/default/saslauthd
 
+RUN useradd -m fixmymail
+ADD ./start.sh /start.sh
+RUN chmod 755 /start.sh
+
 # smtp port for incoming mail
 EXPOSE 25 
 
@@ -45,4 +49,4 @@ EXPOSE 587
 
 EXPOSE 993 110 995
 
-ENTRYPOINT chown -R vmail:vmail /srv/vmail; service rsyslog start; service postfix start; service saslauthd start; /usr/sbin/cyrmaster;
+ENTRYPOINT ["/start.sh"]

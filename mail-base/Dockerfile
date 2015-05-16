@@ -13,8 +13,7 @@ RUN apt-get install -y openssh-server
 RUN apt-get install -y vim
 RUN apt-get install -y telnet
 RUN apt-get install -y less
-
-RUN useradd -m fixmymail
+RUN apt-get install -y man
 
 # add user vmail who own all mail folders
 RUN groupadd -g 5000 vmail
