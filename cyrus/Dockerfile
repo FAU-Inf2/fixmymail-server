@@ -36,4 +36,4 @@ ADD config/10-centrallog.conf /etc/rsyslog.d/10-centrallog.conf
 
 EXPOSE 143 993 110 995
 
-ENTRYPOINT ["/init.sh"]
+CMD ["/init.sh"]
