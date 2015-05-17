@@ -15,3 +15,4 @@ service ssh start;
 service saslauthd start;
 service postfix start;
 /usr/sbin/cyrmaster;
+/bin/bash;
