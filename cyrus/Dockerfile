@@ -29,6 +29,7 @@ RUN postmap /etc/postfix/virtual-mailbox-maps
 RUN apt-get install -y cyrus-imapd cyrus-admin sasl2-bin
 
 RUN chown cyrus /etc/sasldb2
+RUN adduser postfix sasl
 
 ADD ./imapd.conf /etc/imapd.conf
 ADD ./cyrus.conf /etc/cyrus.conf
