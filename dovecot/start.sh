@@ -8,5 +8,4 @@ chown -R vmail:vmail /srv/vmail;
 service rsyslog start;
 service ssh start;
 service postfix start;
-service dovecot start;
-/bin/bash;
+/usr/sbin/dovecot -c /etc/dovecot/dovecot.conf -F

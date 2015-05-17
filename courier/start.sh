@@ -1,7 +1,6 @@
 #!/bin/sh
 
 if [ -n "${FIXMYMAILPW}" ]; then
-#    echo -e "$FIXMYMAILPW\n$FIXMYMAILPW" | passwd fixmymail;
     echo "$FIXMYMAILPW:fixmymail" | chpasswd
 fi
 

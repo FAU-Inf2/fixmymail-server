@@ -14,5 +14,4 @@ service rsyslog start;
 service ssh start;
 service saslauthd start;
 service postfix start;
-service cyrus-imapd start;
-/bin/bash;
+/usr/sbin/cyrmaster;
